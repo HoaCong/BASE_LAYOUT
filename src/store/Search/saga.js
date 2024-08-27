@@ -1,5 +1,5 @@
 import { ENDPOINT } from "constants/routerApi";
-import { get, post } from "helper/ajax";
+import { GET, POST } from "helper/ajax";
 import { all, call, put, takeLeading } from "redux-saga/effects";
 import { actionLogout, actionMinusCountCheck } from "store/Login/action";
 import { addToast } from "store/Toast/action";
@@ -12,17 +12,17 @@ function* callApiSearch({ params }) {
       cccd: {
         surfix: "/cccd/" + query,
         options: null,
-        method: get,
+        method: GET,
       },
       phone: {
         surfix: "/phone/" + query,
         options: null,
-        method: get,
+        method: GET,
       },
       custom: {
         surfix: "",
         options: queryCustom,
-        method: post,
+        method: POST,
       },
     };
     const surfix = CASE_SURFIX[type].surfix;

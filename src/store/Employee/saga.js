@@ -1,6 +1,6 @@
 import { ENDPOINT } from "constants/routerApi";
 import { saveAs } from "file-saver";
-import { get, post, put as puts, remove } from "helper/ajax";
+import { DELETE, GET, POST, PUT } from "helper/ajax";
 import { all, call, put, takeLatest, takeLeading } from "redux-saga/effects";
 import { actionLogout } from "store/Login/action";
 import { addToast } from "store/Toast/action";
@@ -23,7 +23,7 @@ import {
 import * as ActionTypes from "./constant";
 function* callApiList({ params }) {
   try {
-    const response = yield call(get, ENDPOINT.LIST_EMPLOYEE, params);
+    const response = yield call(GET, ENDPOINT.LIST_EMPLOYEE, params);
     if (response.status === 200) {
       yield put(actionGetListSuccess(response.data));
     } else {
@@ -47,7 +47,7 @@ function* callApiList({ params }) {
 
 function* callApiAdd({ params }) {
   try {
-    const response = yield call(post, ENDPOINT.ADD_EMPLOYEE, params);
+    const response = yield call(POST, ENDPOINT.ADD_EMPLOYEE, params);
     if (response.status === 200) {
       yield put(actionAddSuccess(response.data.data));
       yield put(
@@ -93,7 +93,7 @@ function* callApiAdd({ params }) {
 function* callApiEdit({ params }) {
   try {
     const { id } = params;
-    const response = yield call(puts, ENDPOINT.EDIT_EMPLOYEE + id, params);
+    const response = yield call(PUT, ENDPOINT.EDIT_EMPLOYEE + id, params);
 
     if (response.status === 200) {
       yield put(actionEditSuccess(response.data.data));
@@ -139,7 +139,7 @@ function* callApiEdit({ params }) {
 
 function* callApiChangeActive({ id }) {
   try {
-    const response = yield call(puts, ENDPOINT.ACTIVE_EMPLOYEE + id);
+    const response = yield call(PUT, ENDPOINT.ACTIVE_EMPLOYEE + id);
     if (response.status === 200) {
       yield put(actionChangeActiveSuccess(id));
       yield put(
@@ -184,7 +184,7 @@ function* callApiChangeActive({ id }) {
 
 function* callApiDelete({ id }) {
   try {
-    const response = yield call(remove, ENDPOINT.DELETE_EMPLOYEE + id);
+    const response = yield call(DELETE, ENDPOINT.DELETE_EMPLOYEE + id);
     if (response.status === 200) {
       yield put(actionDeleteSuccess(id));
       yield put(
@@ -229,7 +229,7 @@ function* callApiDelete({ id }) {
 
 function* callApiDetail({ id }) {
   try {
-    const response = yield call(get, ENDPOINT.DETAIL_EMPLOYEE + id);
+    const response = yield call(GET, ENDPOINT.DETAIL_EMPLOYEE + id);
     if (response.status === 200) {
       yield put(actionDetailSuccess(response.data.data));
     } else {
@@ -255,7 +255,7 @@ function* callApiUpdateDetail({ params }) {
   try {
     const { id } = params;
     const response = yield call(
-      puts,
+      PUT,
       ENDPOINT.UPDATE_DETAIL_EMPLOYEE + id,
       params
     );
@@ -304,7 +304,7 @@ function* callApiUpdateDetail({ params }) {
 
 function* callApiDownloadExcel({ params }) {
   try {
-    const response = yield call(get, ENDPOINT.DOWNLOAD_EXCEL, {
+    const response = yield call(GET, ENDPOINT.DOWNLOAD_EXCEL, {
       responseType: "blob",
     });
     if (response.status === 200) {

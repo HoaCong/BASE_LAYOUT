@@ -2,11 +2,10 @@
 
 import axiosInstance from "./axiosConfig";
 
-const get = (url, params) => axiosInstance.get(url, { params });
+const GET = (url, params) => axiosInstance.get(url, { params });
+const POST = (url, data, config) => axiosInstance.post(url, data, config);
+const PUT = (url, data, config) => axiosInstance.put(url, data, config);
+const PATCH = (url, data, config) => axiosInstance.patch(url, data, config);
+const DELELE = (url, config) => axiosInstance.delete(url, config);
 
-const post = (url, data, config) => axiosInstance.post(url, data, config);
-const put = (url, data, config) => axiosInstance.put(url, data, config);
-
-const remove = (url, config) => axiosInstance.delete(url, config);
-
-export { get, post, put, remove };
+export { DELELE, GET, PATCH, POST, PUT };

@@ -1,5 +1,5 @@
 import { ENDPOINT } from "constants/routerApi";
-import { post } from "helper/ajax";
+import { POST } from "helper/ajax";
 import { all, call, put, takeLeading } from "redux-saga/effects";
 import { addToast } from "store/Toast/action";
 import {
@@ -16,7 +16,7 @@ const getTimeExpired = () => {
 
 function* callApiLogin({ params, isRemember }) {
   try {
-    const response = yield call(post, ENDPOINT.LOGIN, params);
+    const response = yield call(POST, ENDPOINT.LOGIN, params);
     if (response.status === 200) {
       if (isRemember) {
         localStorage.setItem("access_token", response.data.access_token);
@@ -40,7 +40,7 @@ function* callApiLogin({ params, isRemember }) {
 
 function* callApiRegister({ params }) {
   try {
-    const response = yield call(post, ENDPOINT.REGISTER, params);
+    const response = yield call(POST, ENDPOINT.REGISTER, params);
 
     if (response.status === 200) {
       yield put(
